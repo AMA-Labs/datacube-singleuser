@@ -1,0 +1,99 @@
+name: black_marble_nlt
+description: S-NPP and JPSS joint VIIRS(Visible Infrared Imaging Radiometer Suite) Daily Moonlight-adjusted Nighttime Lights (NTL) Product - VNP46A2
+metadata_type: eo
+
+metadata:
+    product:
+        name: black_marble_nlt
+    platform:
+        code: NPP
+    instrument:
+        name: NPP_OPS
+        product_type: blackmarble_nlt
+    format:
+        name: GeoTiff
+
+measurements:
+      #    - name: 'DNB_BRDF_Corrected_NTL'
+      #      aliases: [band_1, BAND_1, DNB_BRDF_NLT, dnb_brdf_nlt]
+      #      dtype: uint16
+      #      nodata: 65535
+      #      units: 'nanoWatts/cm2/sr'
+
+    - name: 'Gap_Filled_DNB_BRDF_Corrected_NTL'
+      aliases: [band_2, BAND_2, FILLED_DNB_BRDF_NLT, filled_dnb_brdf_nlt]
+      dtype: uint16
+      nodata: 65535
+      units: 'nanoWatts/cm2/sr'
+
+      #    - name: 'DNB_Lunar_Irradiance'
+      #      aliases: [band_3, BAND_3, DNB_LUNAR_IRRADIANCE, dnb_lunar_irradiance]
+      #      dtype: uint16
+      #      nodata: 65535
+      #      units: 'nanoWatts/cm2'
+
+      #    - name: 'Mandatory_Quality_Flag'
+      #      aliases: [band_4, BAND_4, QA, qa]
+      #      dtype: uint8
+      #      nodata: 255
+      #      units: 'bit_index'
+      #      flags_definition:
+      #        day_night:
+      #          bits: [0]
+      #          description: Is this a Day image
+      #          values: {0: false, 1: true}
+      #        land_water:
+      #          bits: [1,2,3]
+      #          description: Dilated Cloud
+      #          values:
+      #            0: Land & Desert
+      #            1: Land no Desert
+      #            2: Inland Water
+      #            3: Sea Water
+      #            4: Coastal
+      #        cloud_mask_qa:
+      #          bits: [4,5]
+      #          description: Cloud Mask Quality
+      #          values:
+      #            0: Poor
+      #            1: Low
+      #            2: Medium
+      #            3: High
+      #        cloud_detection_and_confidence:
+      #          bits: [6,7]
+      #          description: Cloud Detection & Confidence 
+      #          values:
+      #            0: Confident Clear
+      #            1: Probably Clear
+      #            2: Probably Cloudy
+      #            3: Confident Cloudy
+      #        shadow_detect:
+      #          bits: [8]
+      #          description: Shadow Detection
+      #          values: {0: false, 1: true}
+      #        cirrus_detection:
+      #          bits: [9]
+      #          description: Cirrus Detection (IR) (BTM15 – BTM16)
+      #          values: {0: false, 1: true}
+      #        snow_ice:
+      #          bits: [9]
+      #          description: Snow / Ice Surface 
+      #          values: {0: false, 1: true}
+      #
+      #    - name: 'Latest_High_Quality_Retrieval'
+      #      aliases: [band_5, BAND_5, RETRIEVAL_DAYS, retrieval_days]
+      #      dtype: uint8
+      #      nodata: 255
+      #      units: 'NumberOfDays'
+      #
+      #    - name: 'Snow_Flag'
+      #      aliases: [band_6, BAND_6, SNOW, snow]
+      #      dtype: uint8
+      #      nodata: 255
+      #      units: 'N/A'
+      #
+      #    - name: 'QF_Cloud_Mask'
+      #      aliases: [band_7, BAND_7, QF_CLOUD, qf_cloud]
+      #      dtype: uint16
+      #      nodata: 65535
+      #      units: 'N/A'

@@ -1,0 +1,17 @@
+shapely 
+cloudpickle 
+Cython 
+netcdf4
+aiobotocore[awscli,boto3]==1.4.1 
+folium  
+scikit-image 
+ruamel.yaml 
+xarray
+sqlalchemy==1.3.*
+hdmedians
+psycopg2-binary
+rasterio
+pandas==1.1.*
+dask[array]
+packaging
+datacube==1.8.6

@@ -1,0 +1,264 @@
+# Definitions found here under the documentation section: https://www.usgs.gov/core-science-systems/nli/landsat/landsat-collection-2?qt-science_support_page_related_con=1#qt-science_support_page_related_con 
+# Landsat 8 Collection 2 Level 2 -> https://prd-wret.s3.us-west-2.amazonaws.com/assets/palladium/production/atoms/files/LSDS-1328_Landsat8-9-OLI-TIRS-C2-L2-DFCB-v6.pdf
+name: l8_level2_c2_usgs
+description: Landsat 8 USGS Level 2 Collection-2 OLI-TIRS
+metadata_type: eo
+
+metadata:
+    platform:
+        code: LANDSAT_8
+    instrument:
+        name: OLI_TIRS
+    product_type: L2SP
+    format:
+        name: GeoTiff
+
+measurements:
+    - name: 'coastal_aerosol'
+      aliases: [band_1, BAND_1, SR_B1, coastal_aerosol]
+      dtype: uint16
+      nodata: 0
+      units: '1'
+
+    - name: 'blue'
+      aliases: [band_2, BAND_2, SR_B2, blue]
+      dtype: uint16
+      nodata: 0
+      units: '1'
+
+    - name: 'green'
+      aliases: [band_3, BAND_3, SR_B3, green]
+      dtype: uint16
+      nodata: 0
+      units: '1'
+
+    - name: 'red'
+      aliases: [band_4, BAND_4, SR_B4, red]
+      dtype: uint16
+      nodata: 0
+      units: '1'
+
+    - name: 'nir'
+      aliases: [band_5, BAND_5, SR_B5, nir]
+      dtype: uint16
+      nodata: 0
+      units: '1'
+
+    - name: 'swir1'
+      aliases: [band_6, BAND_6, SR_B6, swir1]
+      dtype: uint16
+      nodata: 0
+      units: '1'
+
+    - name: 'swir2'
+      aliases: [band_7, BAND_7, SR_B7, swir2]
+      dtype: uint16
+      nodata: 0
+      units: '1'
+
+    - name: 'thermal_infrared'
+      aliases: [band_10, ST_B10, thermal_infrared]
+      dtype: uint16
+      nodata: 0
+      units: 'Kelvin'
+
+    - name: 'thermal_radiance'
+      aliases: [ST_TRAD, st_trad]
+      dtype: int16
+      nodata: -9999
+      units: 'W/(m^2 sr μm)/DN'
+
+    - name: 'upwelled_radiance'
+      aliases: [ST_URAD, st_urad]
+      dtype: int16
+      nodata: -9999
+      units: 'W/(m^2 sr μm)/DN'
+
+    - name: 'downwelled_radiance'
+      aliases: [ST_DRAD, st_drad]
+      dtype: int16
+      nodata: -9999
+      units: 'W/(m^2 sr μm)/DN'
+
+    - name: 'atmospheric_transmittance'
+      aliases: [ST_ATRAN, st_atran]
+      dtype: int16
+      nodata: -9999
+      units: '1'
+
+    - name: 'emissivity'
+      aliases: [ST_EMIS, st_emis]
+      dtype: int16
+      nodata: -9999
+      units: 'emissivity_cofficient'
+
+    - name: 'emissivity_stdev'
+      aliases: [ST_EMSD, st_emsd]
+      dtype: int16
+      nodata: -9999
+      units: 'emissivity_cofficient'
+
+    - name: 'cloud_distance'
+      aliases: [ST_CDIST, st_cdist]
+      dtype: int16
+      nodata: -9999
+      units: 'KM'
+
+    - name: 'l1_quality_pixel'
+      aliases: [QA_PIXEL, qa_pixel]
+      dtype: uint16
+      nodata: 1
+      units: 'bit_index'
+      flags_definition:
+        designated_fill:
+          bits: [0]
+          description: Used to identify fill values
+          values: {0: false, 1: true}
+        dilated_cloud:
+          bits: [1]
+          description: Dilated Cloud
+          values: {0: false, 1: true}
+        cirrus:
+          bits: [2]
+          description: Cirrus
+          values: {0: false, 1: true}
+        cloud:
+          bits: [3]
+          description: Cloud
+          values: {0: false, 1: true}
+        cloud_shadow:
+          bits: [4]
+          description: Cloud Shadow
+          values: {0: false, 1: true}
+        snow:
+          bits: [5]
+          description: Snow
+          values: {0: false, 1: true}
+        clear:
+          bits: [6]
+          description: Clear
+          values: {0: false, 1: true}
+        water:
+          bits: [7]
+          description: Water
+          values: {0: false, 1: true}
+        cloud_confidence:
+          bits: [8,9]
+          description: Cloud Confidence with low =(0-33)%, medium =(34-66)% and high =(67-100)%
+          values:
+            0: Not Determined
+            1: Low
+            2: Medium
+            3: High
+        cloud_shadow_conf:
+          bits: [10,11]
+          description: Cloud Shadow Confidence with low =(0-33)%, medium =(34-66)% and high =(67-100)%
+          values:
+            0: Not Determined
+            1: Low
+            2: Medium
+            3: High
+        snow_ice_conf:
+          bits: [12,13]
+          description: Snow/Ice Confidence with low =(0-33)%, medium =(34-66)% and high =(67-100)%
+          values:
+            0: Not Determined
+            1: Low
+            2: Medium
+            3: High
+        cirrus_confidence:
+          bits: [14,15]
+          description: Cirrus Confidence with low =(0-33)%, medium =(34-66)% and high =(67-100)%
+          values:
+            0: Not Determined
+            1: Low
+            2: Medium
+            3: High
+
+    - name: 'l1_quality_radiometric_saturation'
+      aliases: [QA_RADSAT, qa_radsat]
+      dtype: uint16
+      nodata: 0
+      units: '1'
+      flags_definition:
+        b1_data_saturation:
+          bits: [0]
+          description: Band 1 Data Saturation
+          values: {0: false, 1: true}
+        b2_data_saturation:
+          bits: [1]
+          description: Band 2 Data Saturation
+          values: {0: false, 1: true}
+        b3_data_saturation:
+          bits: [2]
+          description: Band 3 Data Saturation
+          values: {0: false, 1: true}
+        b4_data_saturation:
+          bits: [3]
+          description: Band 4 Data Saturation
+          values: {0: false, 1: true}
+        b5_data_saturation:
+          bits: [4]
+          description: Band 5 Data Saturation
+          values: {0: false, 1: true}
+        b6_data_saturation:
+          bits: [5]
+          description: Band 6 Data Saturation
+          values: {0: false, 1: true}
+        b7_data_saturation:
+          bits: [6]
+          description: Band 7 Data Saturation
+          values: {0: false, 1: true}
+        b9_data_saturation:
+          bits: [8]
+          description: Band 9 Data Saturation
+          values: {0: false, 1: true}
+        terrain_occlusion:
+          bits: [11]
+          description: Terrain occlusion
+          values: {0: false, 1: true}
+        unused:
+          bits: [7,9,10,12,13,14,15]
+          description: Unused placeholder bits
+          values: {0: none, 1: none}
+
+    - name: 'l2_sr_aerosol_quality'
+      aliases: [SR_QA_AEROSOL, sr_qa_aerosol]
+      dtype: uint8
+      nodata: 1
+      units: '1'
+      flags_definition:
+        designated_fill:
+          bits: [0]
+          description: Used to identify fill values
+          values: {0: false, 1: true}
+        valid_aerosol:
+          bits: [1]
+          description: Valid aerosol retrieval
+          values: {0: false, 1: true}
+        water:
+          bits: [2]
+          description: Water
+          values: {0: false, 1: true}
+        unused:
+          bits: [3,4]
+          description: Unused bits
+          values: {0: none, 1: none}
+        interpolated_aerosol:
+          bits: [5]
+          description: Interpolated Aerosol
+          values: {0: false, 1: true}
+        aerosol_level:
+          bits: [6,7]
+          description: Aerosol Level
+          values:
+            0: Climatology
+            1: Low
+            2: Medium
+            3: High
+
+    - name: 'l2_st_quality'
+      aliases: [ST_QA, st_qa]
+      dtype: uint16
+      nodata: -9999
+      units: 'K'
