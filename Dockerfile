@@ -49,4 +49,4 @@ COPY docker-entrypoint.sh /usr/local/bin/
 
 RUN chmod +x /usr/local/bin/docker-entrypoint.sh && ln -s /usr/local/bin/docker-entrypoint.sh / && hash -r 
 ENTRYPOINT [ "docker-entrypoint.sh" ]
-CMD [ "manager" ]
+CMD [ "datacube" ]
