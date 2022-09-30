@@ -5,6 +5,8 @@ ENV HOME="/root"
 ENV PYTHONUNBUFFERED=1
 ENV LC_ALL C.UTF-8
 
+ENV NB_USR=odc_admin
+ENV NB_PSW=abc123
 ENV DB_DATABASE=datacube
 ENV DB_HOSTNAME=db
 ENV DB_USERNAME=datacube
@@ -54,8 +56,10 @@ RUN pip3 install --no-cache-dir \
 
 COPY src/scripts /opt/odc/
 COPY src/products /opt/odc/products
+COPY src/jupyterhub_config.py /opt/jupyterhub/etc/jupyterhub/jupyterhub_config.py
 COPY docker-entrypoint.sh /usr/local/bin/
 
 RUN chmod +x /usr/local/bin/docker-entrypoint.sh && ln -s /usr/local/bin/docker-entrypoint.sh / && hash -r 
 ENTRYPOINT [ "docker-entrypoint.sh" ]
-CMD [ "jupyterhub" ]
+
+CMD [ "jupyterhub","-f", "/opt/jupyterhub/etc/jupyterhub/jupyterhub_config.py"]

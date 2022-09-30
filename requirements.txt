@@ -15,4 +15,7 @@ pandas==1.1.*
 dask[array]
 packaging
 datacube==1.8.6
-jupyterhub
+jupyter
+jupyterhub==1.4.1
+jupyterlab==3.0.16
+jupyterlab-git==0.30.1

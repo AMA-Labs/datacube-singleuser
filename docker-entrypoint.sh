@@ -66,4 +66,16 @@ if [ ! -f "$DATACUBE_CONFIG_PATH/.datacube.conf" ]; then
     # echo "Datacube config created: $DATACUBE_CONFIG_PATH/.datacube.conf"
 fi
 
+if [ "$1" = 'jupyterhub' ]; then
+    if [[ $(getent passwd "$NB_USR") > /dev/null ]]; then
+        echo "User $NB_USR exists."
+    else    
+        adduser -q --disabled-password --no-create-home --gecos "Full name,Room number,Work phone,Home phone" $NB_USR
+    fi
+        echo $NB_USR:$NB_PSW | chpasswd
+        mkdir /home/$NB_USR
+        chown $NB_USR:$NB_USR /home/$NB_USR 
+fi
+
+
 exec "$@"
