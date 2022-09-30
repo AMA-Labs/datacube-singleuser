@@ -30,7 +30,16 @@ RUN apt update && apt install -y --no-install-recommends \
     libgfortran4 \
     postgresql \
     && rm -rf /var/lib/apt/lists/* \
-    && python3 -m pip install -U pip
+    && python3 -m pip install -U pip \
+    # Download the wrs conversion shape file
+    && mkdir -p /opt/odc/data && cd /opt/odc/data \
+    && curl https://prd-wret.s3.us-west-2.amazonaws.com/assets/palladium/production/s3fs-public/atoms/files/WRS2_descending_0.zip -o wrs2_descending.zip \
+    && cd - \
+    # Install NodeJS
+    && curl -sL https://deb.nodesource.com/setup_16.x | bash - \
+    && apt install -y nodejs \
+    && npm install -g configurable-http-proxy
+
 
 COPY ./requirements.txt .
 
@@ -49,4 +58,4 @@ COPY docker-entrypoint.sh /usr/local/bin/
 
 RUN chmod +x /usr/local/bin/docker-entrypoint.sh && ln -s /usr/local/bin/docker-entrypoint.sh / && hash -r 
 ENTRYPOINT [ "docker-entrypoint.sh" ]
-CMD [ "datacube" ]
+CMD [ "jupyterhub" ]
