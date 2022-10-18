@@ -60,6 +60,7 @@ COPY src/jupyterhub_config.py /opt/jupyterhub/etc/jupyterhub/jupyterhub_config.p
 COPY docker-entrypoint.sh /usr/local/bin/
 
 RUN chmod +x /usr/local/bin/docker-entrypoint.sh && ln -s /usr/local/bin/docker-entrypoint.sh / && hash -r 
+RUN chmod 777 /root
 ENTRYPOINT [ "docker-entrypoint.sh" ]
 
 CMD [ "jupyterhub","-f", "/opt/jupyterhub/etc/jupyterhub/jupyterhub_config.py"]
