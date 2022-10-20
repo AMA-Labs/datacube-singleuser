@@ -43,7 +43,7 @@ RUN apt update && apt install -y --no-install-recommends \
     && npm install -g configurable-http-proxy
 
 
-COPY ./requirements.txt .
+COPY . .
 
 RUN pip install --no-cache-dir -r requirements.txt \    
     && rm -rf $HOME/.cache/pip
@@ -59,7 +59,11 @@ COPY src/products /opt/odc/products
 COPY src/jupyterhub_config.py /opt/jupyterhub/etc/jupyterhub/jupyterhub_config.py
 COPY docker-entrypoint.sh /usr/local/bin/
 
+<<<<<<< Updated upstream
 RUN chmod +x /usr/local/bin/docker-entrypoint.sh && ln -s /usr/local/bin/docker-entrypoint.sh / && hash -r 
+=======
+RUN chmod +x /usr/local/bin/docker-entrypoint.sh && ln -s /usr/local/bin/docker-entrypoint.sh / && hash -r
+>>>>>>> Stashed changes
 RUN chmod 777 /root
 ENTRYPOINT [ "docker-entrypoint.sh" ]
 

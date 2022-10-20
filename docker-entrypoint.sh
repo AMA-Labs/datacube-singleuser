@@ -77,5 +77,11 @@ if [ "$1" = 'jupyterhub' ]; then
         chown $NB_USR:$NB_USR /home/$NB_USR 
 fi
 
+systemctl enable postgresql
+systemctl restart postgresql
+
+createdb -h localhost datacube
+
+datacube system init
 
 exec "$@"
