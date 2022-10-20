@@ -59,11 +59,7 @@ COPY src/products /opt/odc/products
 COPY src/jupyterhub_config.py /opt/jupyterhub/etc/jupyterhub/jupyterhub_config.py
 COPY docker-entrypoint.sh /usr/local/bin/
 
-<<<<<<< Updated upstream
 RUN chmod +x /usr/local/bin/docker-entrypoint.sh && ln -s /usr/local/bin/docker-entrypoint.sh / && hash -r 
-=======
-RUN chmod +x /usr/local/bin/docker-entrypoint.sh && ln -s /usr/local/bin/docker-entrypoint.sh / && hash -r
->>>>>>> Stashed changes
 RUN chmod 777 /root
 ENTRYPOINT [ "docker-entrypoint.sh" ]
 
