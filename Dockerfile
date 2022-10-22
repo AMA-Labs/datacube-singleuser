@@ -44,7 +44,7 @@ RUN apt update && apt install -y --no-install-recommends \
     && npm install -g configurable-http-proxy
 
 
-COPY ./requirements.txt .
+COPY . .
 
 RUN pip install --no-cache-dir -r requirements.txt \    
     && rm -rf $HOME/.cache/pip
