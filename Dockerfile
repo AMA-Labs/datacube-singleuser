@@ -8,10 +8,11 @@ ENV LC_ALL C.UTF-8
 ENV NB_USR=odc_admin
 ENV NB_PSW=abc123
 ENV DB_DATABASE=datacube
-ENV DB_HOSTNAME=db
+ENV DB_HOSTNAME=localhost
 ENV DB_USERNAME=datacube
 ENV DB_PASSWORD=supersecretpassword
 ENV DB_PORT=5432
+ENV DATACUBE_CONFIG_PATH=/.datacube.conf
 
 
 ARG DEBIAN_FRONTEND=noninteractive
@@ -60,7 +61,6 @@ COPY src/jupyterhub_config.py /opt/jupyterhub/etc/jupyterhub/jupyterhub_config.p
 COPY docker-entrypoint.sh /usr/local/bin/
 
 RUN chmod +x /usr/local/bin/docker-entrypoint.sh && ln -s /usr/local/bin/docker-entrypoint.sh / && hash -r 
-RUN chmod 777 /root
 ENTRYPOINT [ "docker-entrypoint.sh" ]
 
 CMD [ "jupyterhub","-f", "/opt/jupyterhub/etc/jupyterhub/jupyterhub_config.py"]

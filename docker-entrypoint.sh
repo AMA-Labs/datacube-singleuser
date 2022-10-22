@@ -76,12 +76,15 @@ if [ "$1" = 'jupyterhub' ]; then
         mkdir /home/$NB_USR
         chown $NB_USR:$NB_USR /home/$NB_USR 
 fi
+{
+    service postgresql start
+    su -c "createuser --createdb --login --superuser $DB_USERNAME" postgres
+    su -c "createdb --owner=$DB_USERNAME $DB_USERNAME" postgres
+    export q="alter user $DB_USERNAME with password '$DB_PASSWORD';"
+    su -c 'psql -c "$q"' postgres
+    datacube system init
+} &> /dev/null
 
-systemctl enable postgresql
-systemctl restart postgresql
-
-createdb -h localhost datacube
-
-datacube system init
+datacube system check
 
 exec "$@"

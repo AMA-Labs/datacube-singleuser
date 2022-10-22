@@ -724,7 +724,8 @@ c.Spawner.environment = {
     'AWS_REQUEST_PAYER':os.environ.get('AWS_REQUEST_PAYER','requester'),
     'AWS_ACCESS_KEY_ID':os.environ.get('AWS_ACCESS_KEY_ID','None'),
     'AWS_SECRET_ACCESS_KEY':os.environ.get('AWS_SECRET_ACCESS_KEY','None'),
-    'GOOGLE_APPLICATION_CREDENTIALS':os.environ.get('GOOGLE_APPLICATION_CREDENTIALS','None')
+    'GOOGLE_APPLICATION_CREDENTIALS':os.environ.get('GOOGLE_APPLICATION_CREDENTIALS','None'),
+    'DATACUBE_CONFIG_PATH':os.environ.get('DATACUBE_CONFIG_PATH','/.datacube.conf')
 }
 
 ## Timeout (in seconds) before giving up on a spawned HTTP server
