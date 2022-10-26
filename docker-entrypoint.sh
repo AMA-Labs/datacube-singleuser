@@ -71,20 +71,15 @@ if [ "$1" = 'jupyterhub' ]; then
         echo "User $NB_USR exists."
     else    
         adduser -q --disabled-password --no-create-home --gecos "Full name,Room number,Work phone,Home phone" $NB_USR
+        echo "$NB_USR  ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers
+        service postgresql start
+        
     fi
         echo $NB_USR:$NB_PSW | chpasswd
         mkdir /home/$NB_USR
         chown $NB_USR:$NB_USR /home/$NB_USR 
 fi
-{
-    service postgresql start
-    su -c "createuser --createdb --login --superuser $DB_USERNAME" postgres
-    su -c "createdb --owner=$DB_USERNAME $DB_USERNAME" postgres
-    export q="alter user $DB_USERNAME with password '$DB_PASSWORD';"
-    su -c 'psql -c "$q"' postgres
-    datacube system init
-} &> /dev/null
 
-datacube system check
+
 
 exec "$@"

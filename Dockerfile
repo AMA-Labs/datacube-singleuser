@@ -1,7 +1,6 @@
 FROM osgeo/gdal:ubuntu-small-3.2.2
 LABEL maintainer="Riaan Stegmann(rstegmann-arch)"
 
-ENV HOME="/root"
 ENV PYTHONUNBUFFERED=1
 ENV LC_ALL C.UTF-8
 
@@ -18,10 +17,9 @@ ENV DATACUBE_CONFIG_PATH=/.datacube.conf
 ARG DEBIAN_FRONTEND=noninteractive
 ARG ODC_VERSION=1.8.6
 
-WORKDIR $HOME
-
 # Install common base image and python dependencies
 RUN apt update && apt install -y --no-install-recommends \
+    sudo \
     software-properties-common \
     build-essential \
     python3-pip python3-dev \
@@ -44,21 +42,28 @@ RUN apt update && apt install -y --no-install-recommends \
     && npm install -g configurable-http-proxy
 
 
-COPY . .
+COPY requirements.txt .
 
-RUN pip install --no-cache-dir -r requirements.txt \    
-    && rm -rf $HOME/.cache/pip
+RUN pip install -r requirements.txt \    
+    && rm -rf .cache/pip
 
-RUN pip3 install --no-cache-dir \    
+RUN pip3 install \    
     GDAL==$(gdal-config --version) \
     odc-apps-dc-tools \
     --no-binary psycopg2 psycopg2 && \
-    rm -rf $HOME/.cache/pip    
+    rm -rf .cache/pip    
 
 COPY src/scripts /opt/odc/
 COPY src/products /opt/odc/products
 COPY src/jupyterhub_config.py /opt/jupyterhub/etc/jupyterhub/jupyterhub_config.py
 COPY docker-entrypoint.sh /usr/local/bin/
+
+RUN service postgresql start \
+    && su -c "createuser --createdb --login --superuser $DB_USERNAME" postgres \
+    && su -c "createdb --owner=$DB_USERNAME $DB_USERNAME" postgres \
+    && export q="alter user $DB_USERNAME with password '$DB_PASSWORD';" \
+    && su -c 'psql -c "$q"' postgres \
+    && datacube system init
 
 RUN chmod +x /usr/local/bin/docker-entrypoint.sh && ln -s /usr/local/bin/docker-entrypoint.sh / && hash -r 
 ENTRYPOINT [ "docker-entrypoint.sh" ]
