@@ -11,35 +11,38 @@ ENV DB_HOSTNAME=localhost
 ENV DB_USERNAME=datacube
 ENV DB_PASSWORD=supersecretpassword
 ENV DB_PORT=5432
-ENV DATACUBE_CONFIG_PATH=/.datacube.conf
+ENV DATACUBE_CONFIG_PATH=/home/.datacube.conf
 
 
 ARG DEBIAN_FRONTEND=noninteractive
 ARG ODC_VERSION=1.8.6
 
 # Install common base image and python dependencies
-RUN apt update && apt install -y --no-install-recommends \
-    sudo \
-    software-properties-common \
-    build-essential \
-    python3-pip python3-dev \
-    git \
-    libpq-dev \
-    libgeos-dev \
-    libproj-dev \
-    libudunits2-dev \
-    libgfortran4 \
-    postgresql \
-    && rm -rf /var/lib/apt/lists/* \
-    && python3 -m pip install -U pip \
-    # Download the wrs conversion shape file
-    && mkdir -p /opt/odc/data && cd /opt/odc/data \
-    && curl https://prd-wret.s3.us-west-2.amazonaws.com/assets/palladium/production/s3fs-public/atoms/files/WRS2_descending_0.zip -o wrs2_descending.zip \
-    && cd - \
-    # Install NodeJS
-    && curl -sL https://deb.nodesource.com/setup_16.x | bash - \
-    && apt install -y nodejs \
-    && npm install -g configurable-http-proxy
+RUN <<EOF
+    apt update
+    apt install -y --no-install-recommends << EOL
+        sudo
+        software-properties-common
+        build-essential
+        python3-pip python3-dev
+        git
+        libpq-dev
+        libgeos-dev
+        libproj-dev
+        libudunits2-dev
+        libgfortran4
+        postgresql
+        EOL
+    rm -rf /var/lib/apt/lists/*
+    python3 -m pip install -U pip
+    mkdir -p /opt/odc/data
+    cd /opt/odc/data
+    curl https://prd-wret.s3.us-west-2.amazonaws.com/assets/palladium/production/s3fs-public/atoms/files/WRS2_descending_0.zip -o wrs2_descending.zip
+    cd -
+    curl -sL https://deb.nodesource.com/setup_16.x | bash -
+    apt install -y nodejs
+    npm install -g configurable-http-proxy
+EOF
 
 
 COPY requirements.txt .
@@ -65,7 +68,9 @@ RUN service postgresql start \
     && su -c 'psql -c "$q"' postgres \
     && datacube system init
 
-RUN chmod +x /usr/local/bin/docker-entrypoint.sh && ln -s /usr/local/bin/docker-entrypoint.sh / && hash -r 
+RUN chmod +x /usr/local/bin/docker-entrypoint.sh && ln -s /usr/local/bin/docker-entrypoint.sh / && hash -r
+RUN chmod 777 /home
+USER root
 ENTRYPOINT [ "docker-entrypoint.sh" ]
 
 CMD [ "jupyterhub","-f", "/opt/jupyterhub/etc/jupyterhub/jupyterhub_config.py"]

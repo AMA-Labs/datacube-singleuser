@@ -28,6 +28,7 @@ else
     export CONF_FILE="$HOME/.datacube.conf"
 fi
 
+
 if [ ! -f "$DATACUBE_CONFIG_PATH/.datacube.conf" ]; then
     # Build Config file
     # echo "No Config file found, initializing datacube config..."
@@ -79,7 +80,5 @@ if [ "$1" = 'jupyterhub' ]; then
         mkdir /home/$NB_USR
         chown $NB_USR:$NB_USR /home/$NB_USR 
 fi
-
-
 
 exec "$@"
